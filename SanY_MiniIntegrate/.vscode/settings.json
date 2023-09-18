@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "stddef.h": "c",
+        "stdio.h": "c",
+        "power.h": "c",
+        "system_portable.h": "c",
+        "system_signal.h": "c",
+        "ert_can.h": "c",
+        "hardwaredefine.h": "c",
+        "lin.h": "c"
+    }
+}

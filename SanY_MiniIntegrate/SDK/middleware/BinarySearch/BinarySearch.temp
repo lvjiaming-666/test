@@ -1,0 +1,142 @@
+/**
+* @file:    BinarySearch.temp
+* @brief:   Add your description here for this file.
+* @author:  Stephen Du
+* @date:    2018-06-14 16:56:00
+*
+* @copyright None
+* @warning   All rights reserved.
+*
+* @par Version Histroy
+<pre><b>
+Version:   Author:       Date&&Time:      Revision Log: </b>
+ V1.0.0  Stephen Du  2018-06-14 16:56:00  First Creat
+When you update, please do not forgot to del me and add your info at here.
+</pre>
+*/
+
+/*----------------------------- START: USER INCLUDED ----------------------------*/
+
+/*------------------------------ END: USER INCLUDE ------------------------------*/
+#ifdef BSEARCH_EQUMATCH_FUNC
+uint16 BSEARCH_EQUMATCH_FUNC(BinSearch_EquMatch,BINSEARCH_BUF_TYPE)(uint16 bufLen, const void* bufPtr, BINSEARCH_BUF_TYPE value)
+{
+    BINSEARCH_BUF_TYPE* l_bufPtr = (BINSEARCH_BUF_TYPE*)bufPtr;
+    BINSEARCH_BUF_TYPE l_minNum = 0, l_maxNum = 0, l_value = value;
+
+    uint16 l_lowIndex = 0u;
+    uint16 l_highIndex = bufLen - 1;
+    uint16 l_midIndex = 0u;
+    uint16 l_returnValue = BINSEARCH_ERROR;
+    boolean l_decrease = 0u;
+
+    if ((NULL_PTR != bufPtr) && (bufLen > 0)) {
+        l_minNum = (l_bufPtr[l_lowIndex] <= l_bufPtr[l_highIndex]) ? l_bufPtr[l_lowIndex] : l_bufPtr[l_highIndex];
+        l_maxNum = (l_bufPtr[l_lowIndex] >= l_bufPtr[l_highIndex]) ? l_bufPtr[l_lowIndex] : l_bufPtr[l_highIndex];
+        if ((l_value >= l_minNum) && (l_value <= l_maxNum)) {
+            do {
+                if (l_value == l_bufPtr[l_lowIndex]) {
+                    l_returnValue = l_lowIndex;
+                    break;
+                } else if (l_value == l_bufPtr[l_highIndex]) {
+                    l_returnValue = l_highIndex;
+                    break;
+                } else {
+                    l_midIndex = (l_lowIndex + l_highIndex) >> 1;
+                    l_decrease = (l_bufPtr[l_lowIndex] <= l_bufPtr[l_highIndex]) ? 0 : 1;
+                    if (l_value < l_bufPtr[l_midIndex]) {
+                        if (0 == l_decrease) {
+                            l_highIndex = l_midIndex;
+                        } else {
+                            l_lowIndex = l_midIndex;
+                        }
+                    } else if (l_value > l_bufPtr[l_midIndex]) {
+                        if (0 == l_decrease) {
+                            l_lowIndex = l_midIndex;
+                        } else {
+                            l_highIndex = l_midIndex;
+                        }
+                    } else {
+                        l_returnValue = l_midIndex;
+                        break;
+                    }
+                }
+            } while ((l_lowIndex + 1) < l_highIndex) ;
+        }
+    }
+    return (l_returnValue);
+}
+
+#undef BINSEARCH_BUF_TYPE
+#undef BSEARCH_EQUMATCH_FUNC
+#endif
+
+#ifdef BSEARCH_INTERVAL_FUNC
+uint16 BSEARCH_INTERVAL_FUNC(BinSearch_Interval,BINSEARCH_BUF_TYPE)(uint16 bufLen, const void* bufPtr, BINSEARCH_BUF_TYPE value)
+{
+    BINSEARCH_BUF_TYPE* l_bufPtr = (BINSEARCH_BUF_TYPE*)bufPtr;
+    BINSEARCH_BUF_TYPE l_value = value;
+
+    uint16 l_lowIndex = 0u;
+    uint16 l_highIndex = bufLen - 1;
+    uint16 l_midIndex = 0u;
+    uint16 l_returnValue = BINSEARCH_ERROR;
+    boolean l_decrease = 0u;
+
+    if ((NULL_PTR != bufPtr) && (bufLen > 0)) {
+        l_decrease = (l_bufPtr[l_lowIndex] <= l_bufPtr[l_highIndex]) ? 0 : 1;
+        if (0 == l_decrease) {
+            do {
+                if (l_value <= l_bufPtr[l_lowIndex]) {
+                    l_returnValue = l_lowIndex;
+                    break;
+                } else if (l_value > l_bufPtr[l_highIndex]) {
+                    l_returnValue = l_highIndex + 1;
+                    break;
+                } else if ((l_value > l_bufPtr[l_lowIndex]) && (l_value <= l_bufPtr[l_lowIndex + 1])) {
+                    l_returnValue = l_lowIndex + 1;
+                    break;
+                } else if ((l_value > l_bufPtr[l_highIndex - 1]) && (l_value <= l_bufPtr[l_highIndex])) {
+                    l_returnValue = l_highIndex;
+                    break;
+                } else {
+                    l_midIndex = (l_lowIndex + l_highIndex) >> 1;
+                    if (l_value > l_bufPtr[l_midIndex]) {
+                        l_lowIndex = l_midIndex;
+                    } else {
+                        l_highIndex = l_midIndex;
+                    }
+                }
+            } while ((l_lowIndex + 1) < l_highIndex);
+        } else {
+            do {
+                if (l_value >= l_bufPtr[l_lowIndex]) {
+                    l_returnValue = l_lowIndex;
+                    break;
+                } else if (l_value < l_bufPtr[l_highIndex]) {
+                    l_returnValue = l_highIndex + 1;
+                    break;
+                } else if ((l_value < l_bufPtr[l_lowIndex]) && (l_value >= l_bufPtr[l_lowIndex + 1])) {
+                    l_returnValue = l_lowIndex + 1;
+                    break;
+                } else if ((l_value < l_bufPtr[l_highIndex - 1]) && (l_value >= l_bufPtr[l_highIndex])) {
+                    l_returnValue = l_highIndex;
+                    break;
+                } else {
+                    l_midIndex = (l_lowIndex + l_highIndex) >> 1;
+                    if (l_value < l_bufPtr[l_midIndex]) {
+                        l_lowIndex = l_midIndex;
+                    } else {
+                        l_highIndex = l_midIndex;
+                    }
+                }
+            } while ((l_lowIndex + 1) < l_highIndex);
+        }
+    }
+    return (l_returnValue);
+}
+
+#undef BINSEARCH_BUF_TYPE
+#undef BSEARCH_INTERVAL_FUNC
+#endif
+/*============================= END OF FILE: BinarySearch.temp ============================*/

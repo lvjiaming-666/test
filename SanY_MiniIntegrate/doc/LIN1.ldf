@@ -1,0 +1,260 @@
+
+
+LIN_description_file;
+LIN_protocol_version = "2.1";
+LIN_language_version = "2.1";
+LIN_speed = 19.2 kbps;
+
+Nodes {
+  Master: DSCU1, 1 ms, 0 ms ;
+  Slaves: Flank, Cushion, Aromatherapy, VentilationAndHeating ;
+}
+
+Signals {
+  CushionCtrl: 2, 0, DSCU1, Cushion ;
+  LegPadCtrl: 2, 2, DSCU1, Cushion ;
+  SweetAtmosphereCmd: 2, 0, DSCU1, Aromatherapy ;
+  FL_SeatVentilation: 2, 0, DSCU1, VentilationAndHeating ;
+  PowerMode: 2, 0, DSCU1, VentilationAndHeating ;
+  FL_SeatHeat: 2, 0, DSCU1, VentilationAndHeating ;
+  FR_SeatHeat: 2, 0, DSCU1, VentilationAndHeating ;
+  FR_SeatVentilation: 2, 0, DSCU1, VentilationAndHeating ;
+  CushionFlankCmd: 2, 0, DSCU1, Flank ;
+  BackrestFlankCmd: 2, 0, DSCU1, Flank ;
+  CushionCtrlSts: 2, 0, Cushion, DSCU1 ;
+  LegPadCtrlSts: 2, 0, Cushion, DSCU1 ;
+  CushionPVSts: 8, 0, Cushion, DSCU1 ;
+  LegPadPVSts: 8, 0, Cushion, DSCU1 ;
+  SweetAtmosphereSts: 2, 0, Aromatherapy, DSCU1 ;
+  FL_SeatVentilationSt: 2, 0, VentilationAndHeating, DSCU1 ;
+  FL_SeatHeatSt: 2, 0, VentilationAndHeating, DSCU1 ;
+  FL_SeatVentilationErr: 1, 0, VentilationAndHeating, DSCU1 ;
+  FL_SeatHeatErr: 1, 0, VentilationAndHeating, DSCU1 ;
+  FR_SeatVentilationSt: 2, 0, VentilationAndHeating, DSCU1 ;
+  FR_SeatHeatSt: 2, 0, VentilationAndHeating, DSCU1 ;
+  FR_SeatVentilationErr: 1, 0, VentilationAndHeating, DSCU1 ;
+  FR_SeatHeatErr: 1, 0, VentilationAndHeating, DSCU1 ;
+  CushionFlankSts: 2, 0, Flank, DSCU1 ;
+  BackrestFlankCSts: 2, 0, Flank, DSCU1 ;
+  CushionFlankPVSts: 8, 0, Flank, DSCU1 ;
+  BackrestFlankPSts: 8, 0, Flank, DSCU1 ;
+  CushionPV: 8, 0, DSCU1, Cushion ;
+  LegPadPV: 8, 0, DSCU1, Cushion ;
+  CushionLinError: 1, 0, Cushion, DSCU1 ;
+  AromatherapyLinError: 1, 0, Aromatherapy, DSCU1 ;
+  VentilationAndHeatingLinError: 1, 0, VentilationAndHeating, DSCU1 ;
+  FlankLinError: 1, 0, Flank, DSCU1 ;
+}
+
+Diagnostic_signals {
+  MasterReqB0: 8, 0 ;
+  MasterReqB1: 8, 0 ;
+  MasterReqB2: 8, 0 ;
+  MasterReqB3: 8, 0 ;
+  MasterReqB4: 8, 0 ;
+  MasterReqB5: 8, 0 ;
+  MasterReqB6: 8, 0 ;
+  MasterReqB7: 8, 0 ;
+  SlaveRespB0: 8, 0 ;
+  SlaveRespB1: 8, 0 ;
+  SlaveRespB2: 8, 0 ;
+  SlaveRespB3: 8, 0 ;
+  SlaveRespB4: 8, 0 ;
+  SlaveRespB5: 8, 0 ;
+  SlaveRespB6: 8, 0 ;
+  SlaveRespB7: 8, 0 ;
+}
+
+
+
+Frames {
+  DSCU1_Cushion: 2, DSCU1, 6 {
+    CushionCtrl, 0 ;
+    LegPadCtrl, 2 ;
+  }
+  DSCU1_Aromatherapy: 5, DSCU1, 1 {
+    SweetAtmosphereCmd, 0 ;
+  }
+  DSCU1_VentilationAndHeating: 51, DSCU1, 8 {
+    FL_SeatVentilation, 0 ;
+    PowerMode, 2 ;
+    FL_SeatHeat, 4 ;
+    FR_SeatHeat, 6 ;
+    FR_SeatVentilation, 8 ;
+  }
+  DSCU1_Flank: 1, DSCU1, 4 {
+    CushionFlankCmd, 0 ;
+    BackrestFlankCmd, 8 ;
+  }
+  Cushion_DSCU1: 18, Cushion, 6 {
+    CushionCtrlSts, 0 ;
+    LegPadCtrlSts, 2 ;
+    CushionPVSts, 8 ;
+    LegPadPVSts, 16 ;
+    CushionLinError, 24 ;
+  }
+  Aromatherapy_DSCU1: 21, Aromatherapy, 1 {
+    SweetAtmosphereSts, 0 ;
+    AromatherapyLinError, 2 ;
+  }
+  VentilationAndHeating_DSCU1: 52, VentilationAndHeating, 8 {
+    FL_SeatVentilationSt, 0 ;
+    FL_SeatHeatSt, 2 ;
+    FL_SeatVentilationErr, 4 ;
+    FL_SeatHeatErr, 5 ;
+    FR_SeatVentilationSt, 8 ;
+    FR_SeatHeatSt, 10 ;
+    FR_SeatVentilationErr, 12 ;
+    FR_SeatHeatErr, 13 ;
+    VentilationAndHeatingLinError, 14 ;
+  }
+  Flank_DSCU1: 17, Flank, 5 {
+    CushionFlankSts, 0 ;
+    BackrestFlankCSts, 8 ;
+    CushionFlankPVSts, 16 ;
+    BackrestFlankPSts, 24 ;
+    FlankLinError, 32 ;
+  }
+  DSCU1_CushionPre: 4, DSCU1, 6 {
+    CushionPV, 0 ;
+    LegPadPV, 8 ;
+  }
+}
+
+
+
+Diagnostic_frames {
+  MasterReq: 0x3c {
+    MasterReqB0, 0 ;
+    MasterReqB1, 8 ;
+    MasterReqB2, 16 ;
+    MasterReqB3, 24 ;
+    MasterReqB4, 32 ;
+    MasterReqB5, 40 ;
+    MasterReqB6, 48 ;
+    MasterReqB7, 56 ;
+  }
+  SlaveResp: 0x3d {
+    SlaveRespB0, 0 ;
+    SlaveRespB1, 8 ;
+    SlaveRespB2, 16 ;
+    SlaveRespB3, 24 ;
+    SlaveRespB4, 32 ;
+    SlaveRespB5, 40 ;
+    SlaveRespB6, 48 ;
+    SlaveRespB7, 56 ;
+  }
+}
+
+Node_attributes {
+  Flank{
+    LIN_protocol = "2.1" ;
+    configured_NAD = 0x1 ;
+    initial_NAD = 0x1 ;
+    product_id = 0x0, 0x0, 255 ;
+    response_error             = FlankLinError;           /* Response error signal */
+    P2_min = 50 ms ;
+    ST_min = 0 ms ;
+    N_As_timeout = 1000 ms ;
+    N_Cr_timeout = 1000 ms ;
+    configurable_frames {
+      DSCU1_Flank ;
+      Flank_DSCU1 ;
+    }
+  }
+  Cushion{
+    LIN_protocol = "2.1" ;
+    configured_NAD = 0x2 ;
+    initial_NAD = 0x2 ;
+    product_id = 0x0, 0x0, 255 ;
+    response_error             = CushionLinError;           /* Response error signal */
+    P2_min = 50 ms ;
+    ST_min = 0 ms ;
+    N_As_timeout = 1000 ms ;
+    N_Cr_timeout = 1000 ms ;
+    configurable_frames {
+      DSCU1_Cushion ;
+      Cushion_DSCU1 ;
+      DSCU1_CushionPre ;
+    }
+  }
+  Aromatherapy{
+    LIN_protocol = "2.1" ;
+    configured_NAD = 0x3 ;
+    initial_NAD = 0x3 ;
+    product_id = 0x0, 0x0, 255 ;
+    response_error             = AromatherapyLinError;           /* Response error signal */
+    P2_min = 50 ms ;
+    ST_min = 0 ms ;
+    N_As_timeout = 1000 ms ;
+    N_Cr_timeout = 1000 ms ;
+    configurable_frames {
+      DSCU1_Aromatherapy ;
+      Aromatherapy_DSCU1 ;
+    }
+  }
+  VentilationAndHeating{
+    LIN_protocol = "2.1" ;
+    configured_NAD = 0x4 ;
+    initial_NAD = 0x4 ;
+    product_id = 0x0, 0x0, 255 ;
+    response_error             = VentilationAndHeatingLinError;           /* Response error signal */
+    P2_min = 50 ms ;
+    ST_min = 0 ms ;
+    N_As_timeout = 1000 ms ;
+    N_Cr_timeout = 1000 ms ;
+    configurable_frames {
+      DSCU1_VentilationAndHeating ;
+      VentilationAndHeating_DSCU1 ;
+    }
+  }
+}
+
+Schedule_tables {
+ ScheduleTable_Test {
+    DSCU1_Cushion delay 15 ms ;
+    DSCU1_CushionPre delay 8 ms ;
+    Cushion_DSCU1 delay 15 ms ;
+    DSCU1_Aromatherapy delay 15 ms ;
+    Aromatherapy_DSCU1 delay 15 ms ;
+    DSCU1_VentilationAndHeating delay 15 ms ;
+    VentilationAndHeating_DSCU1 delay 15 ms ;
+    DSCU1_Flank delay 15 ms ;
+    Flank_DSCU1 delay 15 ms ;
+  }
+}
+
+
+Signal_encoding_types {
+  CushionCtrl_Encoding {
+    physical_value, 0, 3, 1, 0 ;
+  }
+  CushionLinError_Encoding {
+    physical_value, 0, 1, 1, 0 ;
+  }
+  CushionPVSts_Encoding {
+    physical_value, 0, 255, 1, 0 ;
+  }
+  DSCU1_Flank_NewSignal_Encoding {
+    physical_value, 1, 3, 1, 0 ;
+  }
+  FL_SeatVentilationErr_Encoding {
+    physical_value, 0, 1, 1, 0 ;
+  }
+  FL_SeatVentilation_Encoding {
+    physical_value, 0, 3, 1, 0 ;
+  }
+  SweetAtmosphereCmd_Encoding {
+    physical_value, 0, 3, 1, 0 ;
+  }
+}
+
+Signal_representation {
+  CushionCtrl_Encoding: CushionCtrl, LegPadCtrl, PowerMode, FL_SeatHeat, FR_SeatHeat, FR_SeatVentilation, CushionCtrlSts, LegPadCtrlSts, SweetAtmosphereSts, FL_SeatVentilationSt, FL_SeatHeatSt, FR_SeatVentilationSt, FR_SeatHeatSt ;
+  CushionLinError_Encoding: CushionLinError, AromatherapyLinError, FlankLinError ;
+  CushionPVSts_Encoding: CushionPVSts, LegPadPVSts, CushionFlankPVSts, BackrestFlankPSts, CushionPV, LegPadPV ;
+  DSCU1_Flank_NewSignal_Encoding: CushionFlankCmd, BackrestFlankCmd, CushionFlankSts, BackrestFlankCSts ;
+  FL_SeatVentilationErr_Encoding: FL_SeatVentilationErr, FL_SeatHeatErr, FR_SeatVentilationErr ;
+  FL_SeatVentilation_Encoding: FL_SeatVentilation ;
+  SweetAtmosphereCmd_Encoding: SweetAtmosphereCmd ;
+}

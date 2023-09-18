@@ -1,0 +1,76 @@
+/*---------GLOBAL DEFINITIONS-----------*/
+
+LIN_description_file;
+LIN_protocol_version = "1.3";
+LIN_language_version = "1.3";
+LIN_speed = 19.2 kbps;
+
+Nodes {
+  Master: SeatECU, 5 ms, 0.1 ms ;
+  Slaves: Motor1, Motor2 ;
+}
+
+Signals {
+  Motor1Selection: 2, 0, SeatECU, Motor1 ;
+}
+
+Diagnostic_signals {
+  MasterReqB0: 8, 0 ;
+  MasterReqB1: 8, 0 ;
+  MasterReqB2: 8, 0 ;
+  MasterReqB3: 8, 0 ;
+  MasterReqB4: 8, 0 ;
+  MasterReqB5: 8, 0 ;
+  MasterReqB6: 8, 0 ;
+  MasterReqB7: 8, 0 ;
+  SlaveRespB0: 8, 0 ;
+  SlaveRespB1: 8, 0 ;
+  SlaveRespB2: 8, 0 ;
+  SlaveRespB3: 8, 0 ;
+  SlaveRespB4: 8, 0 ;
+  SlaveRespB5: 8, 0 ;
+  SlaveRespB6: 8, 0 ;
+  SlaveRespB7: 8, 0 ;
+}
+
+
+
+Frames {
+  Motor1Control: 48, SeatECU, 1 {
+    Motor1Selection, 0 ;
+  }
+}
+
+
+Diagnostic_frames {
+  MasterReq: 0x3c {
+    MasterReqB0, 0 ;
+    MasterReqB1, 8 ;
+    MasterReqB2, 16 ;
+    MasterReqB3, 24 ;
+    MasterReqB4, 32 ;
+    MasterReqB5, 40 ;
+    MasterReqB6, 48 ;
+    MasterReqB7, 56 ;
+  }
+  SlaveResp: 0x3d {
+    SlaveRespB0, 0 ;
+    SlaveRespB1, 8 ;
+    SlaveRespB2, 16 ;
+    SlaveRespB3, 24 ;
+    SlaveRespB4, 32 ;
+    SlaveRespB5, 40 ;
+    SlaveRespB6, 48 ;
+    SlaveRespB7, 56 ;
+  }
+}
+
+Schedule_tables {
+ NormalTable {
+    Motor1Control delay 50 ms ;
+    Motor1State_Cycl delay 50 ms ;
+  }
+}
+
+
+
